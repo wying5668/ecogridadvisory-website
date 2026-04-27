@@ -1,924 +1,310 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="EcoGrid Advisory provides specialist grid connection, BESS, inverter-based resource, large load and NEM power system advisory services across Australia." />
-  <title>EcoGrid Advisory | Grid Connection, BESS & Power System Advisory</title>
-
-  <style>
-    :root {
-      --ink: #07111f;
-      --ink-2: #172033;
-      --muted: #5f6b7a;
-      --muted-2: #8a94a3;
-      --line: #e3e8ef;
-      --soft: #f5f7fb;
-      --soft-2: #eef3f8;
-      --blue: #174ea6;
-      --blue-2: #0b74de;
-      --teal: #12b3a8;
-      --gold: #c9992e;
-      --white: #ffffff;
-      --max: 1180px;
-      --radius: 22px;
-      --shadow: 0 24px 70px rgba(7, 17, 31, 0.11);
-    }
-
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body {
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
-      color: var(--ink);
-      background: var(--white);
-      line-height: 1.55;
-      -webkit-font-smoothing: antialiased;
-      text-rendering: optimizeLegibility;
-    }
-    a { color: inherit; text-decoration: none; }
-    img { max-width: 100%; display: block; }
-
-    .wrap { max-width: var(--max); margin: 0 auto; padding: 0 24px; }
-
-    /* Top notice */
-    .topbar {
-      background: #061424;
-      color: rgba(255,255,255,.78);
-      font-size: 13px;
-      letter-spacing: .02em;
-    }
-    .topbar .wrap {
-      display: flex;
-      justify-content: space-between;
-      gap: 20px;
-      padding-top: 10px;
-      padding-bottom: 10px;
-    }
-    .topbar strong { color: #fff; font-weight: 650; }
-
-    /* Navigation */
-    .nav {
-      position: sticky;
-      top: 0;
-      z-index: 50;
-      background: rgba(255,255,255,.88);
-      backdrop-filter: blur(18px);
-      border-bottom: 1px solid rgba(227,232,239,.8);
-    }
-    .nav-inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 76px;
-    }
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-weight: 780;
-      letter-spacing: -0.03em;
-      font-size: 20px;
-    }
-    .brand-mark {
-      width: 38px;
-      height: 38px;
-      border-radius: 12px;
-      background: linear-gradient(135deg, var(--blue), var(--teal));
-      display: grid;
-      place-items: center;
-      color: white;
-      box-shadow: 0 12px 32px rgba(23,78,166,.25);
-    }
-    .brand-mark svg { width: 22px; height: 22px; }
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 28px;
-      font-size: 14px;
-      color: var(--ink-2);
-      font-weight: 600;
-    }
-    .nav-links a { opacity: .82; }
-    .nav-links a:hover { opacity: 1; color: var(--blue); }
-    .nav-cta {
-      padding: 11px 16px;
-      border-radius: 999px;
-      background: var(--ink);
-      color: white !important;
-      opacity: 1 !important;
-      box-shadow: 0 12px 28px rgba(7,17,31,.18);
-    }
-
-    /* Hero */
-    .hero {
-      position: relative;
-      overflow: hidden;
-      background:
-        radial-gradient(circle at 86% 18%, rgba(18,179,168,.22), transparent 28%),
-        radial-gradient(circle at 8% 34%, rgba(23,78,166,.19), transparent 32%),
-        linear-gradient(180deg, #fbfdff 0%, #eef4fb 100%);
-      border-bottom: 1px solid var(--line);
-    }
-    .hero:before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background-image:
-        linear-gradient(rgba(7,17,31,.055) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(7,17,31,.055) 1px, transparent 1px);
-      background-size: 54px 54px;
-      mask-image: linear-gradient(180deg, rgba(0,0,0,.75), transparent 86%);
-      pointer-events: none;
-    }
-    .hero-grid {
-      position: relative;
-      display: grid;
-      grid-template-columns: 1.05fr .95fr;
-      gap: 46px;
-      align-items: center;
-      padding: 92px 0 78px;
-    }
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      padding: 9px 13px;
-      border: 1px solid rgba(23,78,166,.16);
-      background: rgba(255,255,255,.72);
-      border-radius: 999px;
-      color: var(--blue);
-      font-weight: 750;
-      font-size: 13px;
-      letter-spacing: .02em;
-      box-shadow: 0 8px 24px rgba(23,78,166,.08);
-      margin-bottom: 24px;
-    }
-    .pulse {
-      width: 9px;
-      height: 9px;
-      border-radius: 50%;
-      background: var(--teal);
-      box-shadow: 0 0 0 7px rgba(18,179,168,.13);
-    }
-    h1 {
-      font-size: clamp(44px, 6vw, 76px);
-      line-height: .98;
-      letter-spacing: -0.065em;
-      font-weight: 820;
-      max-width: 760px;
-      color: var(--ink);
-    }
-    .hero-copy {
-      margin-top: 24px;
-      font-size: 19px;
-      line-height: 1.65;
-      color: #3d4a5d;
-      max-width: 690px;
-    }
-    .hero-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 14px;
-      margin-top: 34px;
-    }
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      min-height: 52px;
-      padding: 0 20px;
-      border-radius: 999px;
-      font-weight: 760;
-      letter-spacing: -0.01em;
-      transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
-      border: 1px solid transparent;
-    }
-    .btn:hover { transform: translateY(-2px); }
-    .btn-primary {
-      background: linear-gradient(135deg, var(--blue), #0a2d66);
-      color: white;
-      box-shadow: 0 18px 42px rgba(23,78,166,.24);
-    }
-    .btn-secondary {
-      background: rgba(255,255,255,.82);
-      color: var(--ink);
-      border-color: rgba(7,17,31,.12);
-      box-shadow: 0 12px 32px rgba(7,17,31,.07);
-    }
-    .hero-proof {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0,1fr));
-      gap: 14px;
-      margin-top: 42px;
-      max-width: 760px;
-    }
-    .proof-card {
-      background: rgba(255,255,255,.72);
-      border: 1px solid rgba(227,232,239,.9);
-      border-radius: 18px;
-      padding: 18px;
-      box-shadow: 0 14px 36px rgba(7,17,31,.06);
-    }
-    .proof-card strong {
-      display: block;
-      font-size: 22px;
-      letter-spacing: -0.04em;
-      margin-bottom: 4px;
-    }
-    .proof-card span {
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 1.35;
-      display: block;
-    }
-
-    .hero-panel {
-      position: relative;
-      border-radius: 32px;
-      background: #07111f;
-      color: white;
-      padding: 26px;
-      box-shadow: var(--shadow);
-      overflow: hidden;
-      min-height: 540px;
-    }
-    .hero-panel:before {
-      content: "";
-      position: absolute;
-      inset: -80px -110px auto auto;
-      width: 310px;
-      height: 310px;
-      background: radial-gradient(circle, rgba(18,179,168,.55), transparent 68%);
-      filter: blur(2px);
-    }
-    .hero-panel:after {
-      content: "";
-      position: absolute;
-      inset: auto auto -120px -120px;
-      width: 320px;
-      height: 320px;
-      background: radial-gradient(circle, rgba(23,78,166,.58), transparent 70%);
-    }
-    .panel-content { position: relative; z-index: 2; }
-    .panel-label {
-      color: rgba(255,255,255,.62);
-      font-size: 13px;
-      text-transform: uppercase;
-      letter-spacing: .12em;
-      font-weight: 780;
-      margin-bottom: 18px;
-    }
-    .network-card {
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.055);
-      border-radius: 22px;
-      padding: 20px;
-      margin-bottom: 14px;
-      backdrop-filter: blur(12px);
-    }
-    .network-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 18px;
-      padding: 13px 0;
-      border-bottom: 1px solid rgba(255,255,255,.08);
-    }
-    .network-row:last-child { border-bottom: 0; }
-    .network-row span { color: rgba(255,255,255,.66); font-size: 14px; }
-    .network-row strong { font-size: 15px; text-align: right; }
-    .diagram {
-      margin-top: 20px;
-      border-radius: 24px;
-      background:
-        linear-gradient(135deg, rgba(255,255,255,.08), rgba(255,255,255,.02));
-      border: 1px solid rgba(255,255,255,.12);
-      padding: 22px;
-    }
-    .diagram svg { width: 100%; height: auto; }
-    .node { fill: rgba(255,255,255,.14); stroke: rgba(255,255,255,.45); stroke-width: 1.2; }
-    .node-accent { fill: rgba(18,179,168,.26); stroke: rgba(18,179,168,.85); }
-    .line { stroke: rgba(255,255,255,.34); stroke-width: 2.2; }
-    .line-accent { stroke: rgba(18,179,168,.9); stroke-width: 3; }
-    .svg-text { fill: rgba(255,255,255,.78); font-size: 12px; font-weight: 700; }
-
-    /* Shared sections */
-    section { padding: 88px 0; }
-    .section-head {
-      display: grid;
-      grid-template-columns: .8fr 1.2fr;
-      gap: 44px;
-      align-items: end;
-      margin-bottom: 42px;
-    }
-    .kicker {
-      color: var(--blue);
-      font-size: 13px;
-      text-transform: uppercase;
-      letter-spacing: .13em;
-      font-weight: 820;
-      margin-bottom: 12px;
-    }
-    h2 {
-      font-size: clamp(30px, 4vw, 48px);
-      line-height: 1.06;
-      letter-spacing: -0.045em;
-      font-weight: 820;
-    }
-    .lead {
-      color: var(--muted);
-      font-size: 18px;
-      line-height: 1.65;
-      max-width: 720px;
-    }
-
-    /* Services */
-    .services-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0,1fr));
-      gap: 18px;
-    }
-    .service {
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      padding: 28px;
-      background: white;
-      min-height: 330px;
-      box-shadow: 0 12px 40px rgba(7,17,31,.045);
-      transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
-    }
-    .service:hover {
-      transform: translateY(-5px);
-      border-color: rgba(23,78,166,.3);
-      box-shadow: 0 24px 70px rgba(7,17,31,.09);
-    }
-    .service-number {
-      color: var(--gold);
-      font-weight: 820;
-      letter-spacing: .08em;
-      font-size: 13px;
-      margin-bottom: 28px;
-    }
-    .service h3 {
-      font-size: 23px;
-      line-height: 1.15;
-      letter-spacing: -0.03em;
-      margin-bottom: 14px;
-    }
-    .service p { color: var(--muted); margin-bottom: 24px; }
-    .service ul { list-style: none; display: grid; gap: 10px; }
-    .service li {
-      color: var(--ink-2);
-      font-size: 14px;
-      display: flex;
-      gap: 9px;
-      align-items: flex-start;
-    }
-    .service li:before {
-      content: "";
-      width: 7px;
-      height: 7px;
-      flex: 0 0 auto;
-      border-radius: 50%;
-      background: var(--teal);
-      margin-top: 8px;
-    }
-
-    /* Positioning */
-    .positioning {
-      background: #07111f;
-      color: white;
-      position: relative;
-      overflow: hidden;
-    }
-    .positioning:before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background:
-        radial-gradient(circle at 12% 20%, rgba(23,78,166,.35), transparent 35%),
-        radial-gradient(circle at 86% 80%, rgba(18,179,168,.22), transparent 32%);
-      pointer-events: none;
-    }
-    .positioning .wrap { position: relative; z-index: 1; }
-    .positioning .kicker { color: #7ddbd4; }
-    .positioning h2 { max-width: 880px; }
-    .positioning .lead { color: rgba(255,255,255,.72); margin-top: 22px; }
-    .capability-grid {
-      margin-top: 46px;
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0,1fr));
-      gap: 14px;
-    }
-    .capability {
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.055);
-      border-radius: 20px;
-      padding: 22px;
-      min-height: 150px;
-    }
-    .capability strong { display: block; margin-bottom: 10px; font-size: 16px; }
-    .capability span { color: rgba(255,255,255,.68); font-size: 14px; }
-
-    /* Process */
-    .process {
-      background: var(--soft);
-    }
-    .process-grid {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0,1fr));
-      gap: 16px;
-    }
-    .step {
-      background: white;
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      padding: 24px;
-      min-height: 230px;
-    }
-    .step span {
-      display: inline-grid;
-      place-items: center;
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      background: #eaf2ff;
-      color: var(--blue);
-      font-weight: 820;
-      margin-bottom: 20px;
-    }
-    .step h3 { font-size: 18px; letter-spacing: -0.02em; margin-bottom: 10px; }
-    .step p { color: var(--muted); font-size: 14px; }
-
-    /* Credibility */
-    .cred-grid {
-      display: grid;
-      grid-template-columns: .9fr 1.1fr;
-      gap: 24px;
-      align-items: stretch;
-    }
-    .cred-card {
-      border-radius: 28px;
-      background: linear-gradient(135deg, #0d2746, #07111f);
-      color: white;
-      padding: 34px;
-      min-height: 420px;
-      box-shadow: var(--shadow);
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      overflow: hidden;
-      position: relative;
-    }
-    .cred-card:after {
-      content: "";
-      position: absolute;
-      right: -90px;
-      bottom: -90px;
-      width: 260px;
-      height: 260px;
-      border-radius: 50%;
-      background: rgba(18,179,168,.16);
-    }
-    .cred-card h2 { color: white; position: relative; z-index: 1; }
-    .cred-card p { color: rgba(255,255,255,.72); margin-top: 18px; position: relative; z-index: 1; }
-    .cred-list {
-      display: grid;
-      gap: 14px;
-    }
-    .cred-item {
-      border: 1px solid var(--line);
-      border-radius: 22px;
-      background: white;
-      padding: 24px;
-      display: grid;
-      grid-template-columns: 52px 1fr;
-      gap: 16px;
-      align-items: start;
-    }
-    .cred-icon {
-      width: 52px;
-      height: 52px;
-      border-radius: 16px;
-      background: var(--soft-2);
-      display: grid;
-      place-items: center;
-      color: var(--blue);
-      font-weight: 820;
-    }
-    .cred-item h3 { font-size: 18px; letter-spacing: -0.02em; margin-bottom: 6px; }
-    .cred-item p { color: var(--muted); font-size: 14px; }
-
-    /* CTA */
-    .cta {
-      padding: 88px 0 100px;
-    }
-    .cta-box {
-      border-radius: 34px;
-      background:
-        linear-gradient(135deg, rgba(23,78,166,.96), rgba(7,17,31,.98));
-      color: white;
-      padding: 48px;
-      display: grid;
-      grid-template-columns: 1.2fr .8fr;
-      gap: 34px;
-      align-items: center;
-      box-shadow: var(--shadow);
-      overflow: hidden;
-      position: relative;
-    }
-    .cta-box:before {
-      content: "";
-      position: absolute;
-      right: -120px;
-      top: -120px;
-      width: 320px;
-      height: 320px;
-      border-radius: 50%;
-      background: rgba(18,179,168,.23);
-    }
-    .cta-box > * { position: relative; z-index: 1; }
-    .cta-box h2 { color: white; }
-    .cta-box p { color: rgba(255,255,255,.72); margin-top: 16px; font-size: 17px; }
-    .contact-card {
-      background: rgba(255,255,255,.1);
-      border: 1px solid rgba(255,255,255,.14);
-      border-radius: 24px;
-      padding: 24px;
-      backdrop-filter: blur(12px);
-    }
-    .contact-line {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 12px 0;
-      border-bottom: 1px solid rgba(255,255,255,.12);
-      color: rgba(255,255,255,.86);
-      font-weight: 620;
-    }
-    .contact-line:last-child { border-bottom: 0; }
-    .contact-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: var(--teal);
-      flex: 0 0 auto;
-    }
-
-    footer {
-      border-top: 1px solid var(--line);
-      padding: 34px 0;
-      color: var(--muted);
-      font-size: 14px;
-    }
-    .footer-inner {
-      display: flex;
-      justify-content: space-between;
-      gap: 22px;
-      flex-wrap: wrap;
-    }
-    footer strong { color: var(--ink); }
-
-    @media (max-width: 980px) {
-      .hero-grid,
-      .section-head,
-      .cred-grid,
-      .cta-box {
-        grid-template-columns: 1fr;
-      }
-      .hero-grid { padding-top: 64px; }
-      .hero-panel { min-height: auto; }
-      .services-grid { grid-template-columns: 1fr; }
-      .capability-grid,
-      .process-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
-      .nav-links { gap: 16px; }
-    }
-
-    @media (max-width: 680px) {
-      .topbar { display: none; }
-      .nav-inner { height: auto; padding: 18px 0; align-items: flex-start; gap: 16px; }
-      .nav-links { display: none; }
-      h1 { font-size: 42px; }
-      .hero-copy { font-size: 17px; }
-      .hero-proof { grid-template-columns: 1fr; }
-      .capability-grid,
-      .process-grid { grid-template-columns: 1fr; }
-      .cred-item { grid-template-columns: 1fr; }
-      section { padding: 68px 0; }
-      .cta-box { padding: 30px; border-radius: 26px; }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoGrid Advisory – Power System & Grid Connection Specialists</title>
+    <style>
+        /* Reset and basic styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            color: #333;
+            line-height: 1.6;
+        }
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+        /* Navigation */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #003366;
+            padding: 1rem 2rem;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+        }
+        .navbar .brand {
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: #ffffff;
+        }
+        .navbar ul {
+            list-style: none;
+            display: flex;
+        }
+        .navbar li + li {
+            margin-left: 1.5rem;
+        }
+        .navbar a {
+            color: #ffffff;
+            font-weight: 500;
+        }
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #004080, #0077b6);
+            color: #ffffff;
+            padding: 8rem 2rem 6rem;
+            text-align: center;
+            margin-top: 64px; /* offset for fixed nav */
+        }
+        .hero h1 {
+            font-size: 2.4rem;
+            margin-bottom: 1rem;
+            font-weight: bold;
+        }
+        .hero p {
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+        .hero .btn {
+            display: inline-block;
+            padding: 0.8rem 1.6rem;
+            border-radius: 4px;
+            background: #00aaff;
+            color: #ffffff;
+            font-weight: bold;
+            transition: background 0.2s;
+        }
+        .hero .btn:hover {
+            background: #0088cc;
+        }
+        /* Sections */
+        .section {
+            padding: 4rem 2rem;
+        }
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            text-align: center;
+            font-weight: bold;
+        }
+        .section-subtitle {
+            font-size: 1rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            color: #555;
+        }
+        /* Services */
+        .service-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+        }
+        .service {
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            text-align: center;
+            flex: 1 1 260px;
+            max-width: 320px;
+        }
+        .service .icon-circle {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: #0077b6;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 0 auto 1rem;
+        }
+        /* About */
+        .about-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 2rem;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        .about-text {
+            flex: 1 1 300px;
+        }
+        .about-image {
+            flex: 1 1 300px;
+            text-align: center;
+        }
+        .about-image svg {
+            width: 100%;
+            max-width: 400px;
+            height: auto;
+        }
+        /* Contact */
+        .contact-card {
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .contact-item {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+        }
+        .contact-item strong {
+            margin-right: 0.5rem;
+        }
+        /* Footer */
+        .footer {
+            background: #003366;
+            color: #ffffff;
+            padding: 1rem;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+        /* Responsive */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-wrap: wrap;
+            }
+            .navbar ul {
+                margin-top: 0.5rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .navbar li {
+                margin-left: 0;
+                margin-right: 1rem;
+            }
+            .hero h1 {
+                font-size: 2rem;
+            }
+            .service {
+                flex: 1 1 100%;
+                max-width: none;
+            }
+            .about-wrapper {
+                flex-direction: column;
+            }
+        }
+    </style>
 </head>
-
 <body>
-  <div class="topbar">
-    <div class="wrap">
-      <div><strong>EcoGrid Advisory</strong> | Specialist power system and connection advisory</div>
-      <div>Melbourne · Australian National Electricity Market</div>
-    </div>
-  </div>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="brand">EcoGrid Advisory</div>
+        <ul>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
 
-  <nav class="nav">
-    <div class="wrap nav-inner">
-      <a class="brand" href="#top" aria-label="EcoGrid Advisory home">
-        <span class="brand-mark" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none">
-            <path d="M4 13.2h4.4l2.1-6.7 3.2 12 2.2-5.3H20" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </span>
-        <span>EcoGrid Advisory</span>
-      </a>
-      <div class="nav-links" aria-label="Primary navigation">
-        <a href="#services">Services</a>
-        <a href="#capabilities">Capabilities</a>
-        <a href="#approach">Approach</a>
-        <a href="#why">Why EcoGrid</a>
-        <a class="nav-cta" href="#contact">Contact</a>
-      </div>
-    </div>
-  </nav>
-
-  <main id="top">
+    <!-- Hero Section -->
     <header class="hero">
-      <div class="wrap hero-grid">
-        <div>
-          <div class="eyebrow"><span class="pulse"></span> NEM grid connection, BESS and system strength advisory</div>
-          <h1>Connection certainty for complex energy projects.</h1>
-          <p class="hero-copy">
-            EcoGrid Advisory helps developers, investors and technical teams progress BESS, renewable generation and large load projects through Australia’s increasingly demanding connection and approval environment.
-          </p>
-          <div class="hero-actions">
-            <a class="btn btn-primary" href="#contact">Discuss your project →</a>
-            <a class="btn btn-secondary" href="#services">View services</a>
-          </div>
-          <div class="hero-proof" aria-label="EcoGrid Advisory proof points">
-            <div class="proof-card">
-              <strong>NEM</strong>
-              <span>Grid connection and regulatory context</span>
-            </div>
-            <div class="proof-card">
-              <strong>BESS</strong>
-              <span>System strength, GPS and EMT focus</span>
-            </div>
-            <div class="proof-card">
-              <strong>GW-scale</strong>
-              <span>Renewable and large load connection strategy</span>
-            </div>
-          </div>
-        </div>
-
-        <aside class="hero-panel" aria-label="Technical advisory focus">
-          <div class="panel-content">
-            <div class="panel-label">Technical advisory map</div>
-            <div class="network-card">
-              <div class="network-row">
-                <span>Project type</span>
-                <strong>BESS · Solar · Wind · Data centres · Hydrogen</strong>
-              </div>
-              <div class="network-row">
-                <span>Connection stage</span>
-                <strong>Feasibility → GPS → R1/R2 → commissioning</strong>
-              </div>
-              <div class="network-row">
-                <span>Core risk</span>
-                <strong>System strength · Stability · Compliance · Delay</strong>
-              </div>
-            </div>
-
-            <div class="diagram" aria-hidden="true">
-              <svg viewBox="0 0 440 260" role="img">
-                <line class="line" x1="86" y1="130" x2="354" y2="130"/>
-                <line class="line" x1="220" y1="58" x2="220" y2="202"/>
-                <line class="line-accent" x1="86" y1="130" x2="220" y2="58"/>
-                <line class="line-accent" x1="220" y1="58" x2="354" y2="130"/>
-                <circle class="node node-accent" cx="86" cy="130" r="34"/>
-                <circle class="node node-accent" cx="220" cy="58" r="34"/>
-                <circle class="node" cx="354" cy="130" r="34"/>
-                <circle class="node" cx="220" cy="202" r="34"/>
-                <text class="svg-text" x="62" y="135">BESS</text>
-                <text class="svg-text" x="197" y="63">POC</text>
-                <text class="svg-text" x="331" y="135">NEM</text>
-                <text class="svg-text" x="189" y="207">LOAD</text>
-              </svg>
-            </div>
-          </div>
-        </aside>
-      </div>
+        <h1>Power System &amp; Grid Connection Advisory</h1>
+        <p>
+            Enabling BESS, Renewable &amp; Large Load Connections in the National Electricity Market (NEM)
+        </p>
+        <a href="#contact" class="btn">Discuss Your Project</a>
     </header>
 
-    <section id="services">
-      <div class="wrap">
-        <div class="section-head">
-          <div>
-            <div class="kicker">Services</div>
-            <h2>Specialist support where connection risk is highest.</h2>
-          </div>
-          <p class="lead">
-            EcoGrid Advisory works at the interface of technical modelling, regulatory obligations and practical project delivery. The focus is clear: identify the real risk, define an evidence-based pathway and avoid late-stage surprises.
-          </p>
+    <!-- Services Section -->
+    <section id="services" class="section">
+        <div class="section-title">Services</div>
+        <div class="section-subtitle">
+            Specialised advisory for grid‑scale energy projects in Australia’s National Electricity Market.
         </div>
-
-        <div class="services-grid">
-          <article class="service">
-            <div class="service-number">01</div>
-            <h3>Grid connection strategy</h3>
-            <p>Structured advice for developers navigating connection applications, access standards, GPS negotiations and NSP/AEMO review processes.</p>
-            <ul>
-              <li>Connection risk screening</li>
-              <li>GPS and access standard positioning</li>
-              <li>NSP and AEMO technical engagement</li>
-              <li>Due diligence for acquisition or investment</li>
-            </ul>
-          </article>
-
-          <article class="service">
-            <div class="service-number">02</div>
-            <h3>BESS and inverter-based resources</h3>
-            <p>Technical advisory for BESS, wind, solar and hybrid projects where system strength, control interactions and stability performance drive approval risk.</p>
-            <ul>
-              <li>System strength and stability review</li>
-              <li>EMT study scope and results assessment</li>
-              <li>GFM and inverter control risk review</li>
-              <li>Model quality and benchmarking support</li>
-            </ul>
-          </article>
-
-          <article class="service">
-            <div class="service-number">03</div>
-            <h3>Large load and flexible demand</h3>
-            <p>Support for data centres, hydrogen, electrification and industrial load projects requiring credible assessment of system impact and connection feasibility.</p>
-            <ul>
-              <li>Load connection feasibility</li>
-              <li>Power quality and system impact review</li>
-              <li>Network constraint and staging advice</li>
-              <li>Risk mitigation strategy</li>
-            </ul>
-          </article>
+        <div class="service-list">
+            <div class="service">
+                <div class="icon-circle">1</div>
+                <h3>Grid Connection Strategy</h3>
+                <p>
+                    End‑to‑end support for connection applications, GPS negotiations and regulatory engagement with AEMO and
+                    Network Service Providers.
+                </p>
+            </div>
+            <div class="service">
+                <div class="icon-circle">2</div>
+                <h3>BESS &amp; Inverter‑Based Resources</h3>
+                <p>
+                    Expertise in system strength, EMT studies and stability performance for large‑scale battery and renewable
+                    energy projects.
+                </p>
+            </div>
+            <div class="service">
+                <div class="icon-circle">3</div>
+                <h3>Large Load &amp; Industrial Connections</h3>
+                <p>
+                    Advisory services for data centres, hydrogen plants and industrial loads, including system impact
+                    assessments and connection risk mitigation.
+                </p>
+            </div>
         </div>
-      </div>
     </section>
 
-    <section id="capabilities" class="positioning">
-      <div class="wrap">
-        <div class="kicker">Capability focus</div>
-        <h2>Technical depth for the parts of the connection process that determine bankability.</h2>
-        <p class="lead">
-          The most consequential connection issues rarely sit in a single report. They emerge across models, access standards, network conditions, control behaviour, compliance evidence and stakeholder interpretation.
-        </p>
-
-        <div class="capability-grid">
-          <div class="capability">
-            <strong>System strength</strong>
-            <span>Assessment framing, risk interpretation and mitigation pathway.</span>
-          </div>
-          <div class="capability">
-            <strong>EMT studies</strong>
-            <span>Scope review, result interpretation and acceptance criteria.</span>
-          </div>
-          <div class="capability">
-            <strong>GPS negotiation</strong>
-            <span>Access standard strategy and evidence-based technical positioning.</span>
-          </div>
-          <div class="capability">
-            <strong>Power quality</strong>
-            <span>Voltage, harmonic and rapid voltage change compliance support.</span>
-          </div>
-          <div class="capability">
-            <strong>Model quality</strong>
-            <span>Review of assumptions, benchmarking, model limitations and traceability.</span>
-          </div>
-          <div class="capability">
-            <strong>Project due diligence</strong>
-            <span>Connection risk assessment for developers, investors and acquirers.</span>
-          </div>
-          <div class="capability">
-            <strong>Large loads</strong>
-            <span>Practical strategy for emerging industrial and flexible demand connections.</span>
-          </div>
-          <div class="capability">
-            <strong>Stakeholder engagement</strong>
-            <span>Clear technical communication with NSPs, AEMO, OEMs and advisors.</span>
-          </div>
+    <!-- About Section -->
+    <section id="about" class="section">
+        <div class="section-title">About Us</div>
+        <div class="section-subtitle">
+            Trusted expertise from feasibility to commissioning
         </div>
-      </div>
+        <div class="about-wrapper">
+            <div class="about-text">
+                <p>
+                    EcoGrid Advisory is led by a principal power system engineer with extensive experience in grid connection and
+                    power systems analysis across the Australian National Electricity Market. With a proven track record at
+                    ElectraNet and involvement in CIGRE working groups, we provide credible, independent advice to help
+                    developers navigate complex connection processes and technical requirements.
+                </p>
+                <p>
+                    From feasibility studies through to commissioning, we act as your trusted partner, ensuring that your
+                    project meets regulatory standards, optimises performance and minimises risk.
+                </p>
+            </div>
+            <div class="about-image">
+                <!-- Simple SVG illustration representing energy and grids -->
+                <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" fill="#0077b6">
+                    <path d="M256 48c114.9 0 208 93.1 208 208s-93.1 208-208 208S48 370.9 48 256 141.1 48 256 48zm0-32C119 16 16 119 16 256s103 240 240 240 240-103 240-240S393 16 256 16zm-16 112v112h-80v64h80v112h64V304h80v-64h-80V128h-64z"/>
+                </svg>
+            </div>
+        </div>
     </section>
 
-    <section id="approach" class="process">
-      <div class="wrap">
-        <div class="section-head">
-          <div>
-            <div class="kicker">Approach</div>
-            <h2>From uncertainty to a defensible connection pathway.</h2>
-          </div>
-          <p class="lead">
-            We combine power system engineering judgement with connection process discipline. The outcome is a clear position on what matters, what evidence is required and what decisions need to be made.
-          </p>
+    <!-- Contact Section -->
+    <section id="contact" class="section" style="background:#f5f5f5;">
+        <div class="section-title">Contact Us</div>
+        <div class="section-subtitle">
+            Ready to discuss your project? Get in touch to learn how EcoGrid Advisory can assist with your grid connection
+            and power system needs.
         </div>
-
-        <div class="process-grid">
-          <div class="step">
-            <span>1</span>
-            <h3>Diagnose</h3>
-            <p>Identify the technical and regulatory risks most likely to delay approval or materially affect project value.</p>
-          </div>
-          <div class="step">
-            <span>2</span>
-            <h3>Evidence</h3>
-            <p>Review models, study assumptions, results and access standard positions against the connection objective.</p>
-          </div>
-          <div class="step">
-            <span>3</span>
-            <h3>Position</h3>
-            <p>Translate technical findings into a defensible negotiation strategy for NSP, AEMO, OEM and investor stakeholders.</p>
-          </div>
-          <div class="step">
-            <span>4</span>
-            <h3>Close</h3>
-            <p>Support closure of open technical items with clear actions, acceptance criteria and residual risk ownership.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="why">
-      <div class="wrap cred-grid">
-        <div class="cred-card">
-          <div>
-            <div class="kicker">Why EcoGrid</div>
-            <h2>Principal-level thinking without unnecessary consulting overhead.</h2>
-            <p>
-              EcoGrid Advisory is built for clients who need high-quality, technically credible advice — not generic commentary. We focus on connection risk, model behaviour, regulatory interpretation and practical closure.
+        <div class="contact-card">
+            <div class="contact-item"><strong>Email:</strong><a href="mailto:info@ecogridadvisory.com.au"> info@ecogridadvisory.com.au</a></div>
+            <div class="contact-item"><strong>Phone:</strong> +61 4XX XXX XXX</div>
+            <div class="contact-item"><strong>Location:</strong> Melbourne, VIC, Australia</div>
+            <p style="margin-top:1rem;">
+                Alternatively, please send us a message using your preferred email client and we'll respond promptly to discuss your project.
             </p>
-          </div>
-          <p>Independent · technically rigorous · commercially pragmatic</p>
         </div>
-
-        <div class="cred-list">
-          <div class="cred-item">
-            <div class="cred-icon">A</div>
-            <div>
-              <h3>Australian NEM context</h3>
-              <p>Advice grounded in the realities of NSP and AEMO connection assessment, not generic international guidance.</p>
-            </div>
-          </div>
-          <div class="cred-item">
-            <div class="cred-icon">B</div>
-            <div>
-              <h3>Deep power system modelling lens</h3>
-              <p>Strong focus on stability, EMT behaviour, system strength, controls and model evidence.</p>
-            </div>
-          </div>
-          <div class="cred-item">
-            <div class="cred-icon">C</div>
-            <div>
-              <h3>Regulatory and commercial alignment</h3>
-              <p>Technical positions are framed to support approvals, risk allocation and investment decisions.</p>
-            </div>
-          </div>
-          <div class="cred-item">
-            <div class="cred-icon">D</div>
-            <div>
-              <h3>Clear communication</h3>
-              <p>Complex technical issues are translated into clear decisions, actions and stakeholder-ready language.</p>
-            </div>
-          </div>
-        </div>
-      </div>
     </section>
 
-    <section id="contact" class="cta">
-      <div class="wrap">
-        <div class="cta-box">
-          <div>
-            <h2>Have a project facing connection uncertainty?</h2>
-            <p>
-              Contact EcoGrid Advisory to discuss connection strategy, technical due diligence, BESS/grid-forming risks, large load feasibility or GPS negotiation support.
-            </p>
-            <div class="hero-actions">
-              <a class="btn btn-primary" href="mailto:info@ecogridadvisory.com.au">Email EcoGrid Advisory</a>
-              <a class="btn btn-secondary" href="https://www.ecogridadvisory.com.au/">Visit website</a>
-            </div>
-          </div>
-          <div class="contact-card">
-            <div class="contact-line"><span class="contact-dot"></span> info@ecogridadvisory.com.au</div>
-            <div class="contact-line"><span class="contact-dot"></span> Melbourne, Victoria, Australia</div>
-            <div class="contact-line"><span class="contact-dot"></span> Grid connection · BESS · Large loads</div>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; <span id="year"></span> EcoGrid Advisory. All rights reserved.</p>
+        <p class="small">Designed for the evolving Australian energy landscape.</p>
+    </footer>
 
-  <footer>
-    <div class="wrap footer-inner">
-      <div><strong>EcoGrid Advisory</strong> © <span id="year"></span>. All rights reserved.</div>
-      <div>Specialist advisory for Australia’s evolving energy system.</div>
-    </div>
-  </footer>
-
-  <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
-  </script>
+    <script>
+        // Update year
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
 </body>
 </html>
